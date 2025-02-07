@@ -1,0 +1,2 @@
+# Acorn
+Snippet Management application
