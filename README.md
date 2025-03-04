@@ -1,5 +1,5 @@
 # Acorn
-<img src="https://github.com/user-attachments/assets/57130880-9e88-4a95-8bcb-581a3f1f108c" width="300">
+<img src="https://github.com/user-attachments/assets/57130880-9e88-4a95-8bcb-581a3f1f108c" height= "900" width="700">
 
 ## Overview
 Acorn was created as a lightweight snippet management tool for saving, editing, and re-using snippets of text across any necessary application. Designed to always be running in the background and be easily accessible through a user defined hotkey.
