@@ -1,3 +1,3 @@
 # Acorn
 Snippet Management application
-![Image](https://github.com/user-attachments/assets/192e211b-78da-4a54-abd3-b58f75edd513)
+![Image](https://github.com/user-attachments/assets/57130880-9e88-4a95-8bcb-581a3f1f108c)
