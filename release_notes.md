@@ -9,6 +9,7 @@
 - Snippet popup window is now larger by default and supports two additional functions:
   - While holding CTRL you can move this window.
   - While holding SHIFT + CTRL and moving your mouse you can resize it! The smallest size is the old default size.
+- When the application displays using the hotkey it will now display where your mouse cursor is.
 
 ## Bug Fixes
 - Application should always be in focus when the hotkey is used to bring it back up.

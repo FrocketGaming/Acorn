@@ -6,7 +6,7 @@ import sys
 
 
 class UpdateManager:
-    CURRENT_VERISON = "0.2"
+    CURRENT_VERISON = "0.3"
     REPO = "FrocketGaming/Acorn"
     URL = f"https://api.github.com/repos/{REPO}/releases"
     DOWNLOAD_DIR = Path.home() / "Downloads"

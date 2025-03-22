@@ -11,8 +11,8 @@ from PyQt6.QtWidgets import (
     QLineEdit,
     QComboBox,
 )
-from PyQt6.QtCore import Qt, QTimer, QPoint
-from PyQt6.QtGui import QTextCursor, QIcon, QBrush, QFont, QTextCharFormat, QScreen
+from PyQt6.QtCore import Qt, QTimer
+from PyQt6.QtGui import QTextCursor, QIcon, QBrush, QFont, QTextCharFormat, QCursor
 
 from src.ui.themes.themes_manager import ThemeManager
 from src.ui.title_bar import CustomTitleBar
@@ -118,13 +118,28 @@ class QtManager(BaseWindow):
 
     def show_hide_window(self):
         """Show or hide the main application window based on its current state."""
-
         if self.isVisible():
             self.ui.search_bar.clearFocus()
             self.hide()
-
         else:
+            # Get the current cursor position
+            cursor_pos = QCursor.pos()
+
+            # Show the window first
             self.show()
+
+            # Center the window on the cursor position
+            window_width = self.width()
+            window_height = self.height()
+
+            # Calculate the top-left position that would center the window on cursor
+            x_pos = cursor_pos.x() - (window_width // 2)
+            y_pos = cursor_pos.y() - (window_height // 2)
+
+            # Move the window to the calculated position
+            self.move(x_pos, y_pos)
+
+            # Bring window to front and focus it
             self.raise_()
             self.activateWindow()
 
