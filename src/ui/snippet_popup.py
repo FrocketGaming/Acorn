@@ -30,7 +30,7 @@ class SnippetPopupManager(QDialog):
 
         # Store initial size to use as minimum
         self.min_width = 700
-        self.min_height = 600
+        self.min_height = 400
         self.resize(self.min_width, self.min_height)
 
         self.setWindowFlag(Qt.WindowType.Window)  # Set top-level
@@ -217,7 +217,7 @@ class SnippetPopupManager(QDialog):
 
         # Use the initial size as the minimum
         new_height = max(
-            self.min_height - 200, height + dy
+            self.min_height, height + dy
         )  # Height changes with vertical mouse movement
         new_width = max(
             self.min_width, width + dx

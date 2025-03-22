@@ -6,11 +6,12 @@
   - Example: *MySearchTerm
 - Search terms now maintain in the search bar instead of being cleared automatically.
 - If no search results are found a message will now be displayed.
-- Snippet popup window is now larger by default and supports two additional functions:
+- Snippet popup window supports two additional functions:
   - While holding CTRL you can move this window.
   - While holding SHIFT + CTRL and moving your mouse you can resize it! The smallest size is the old default size.
 - When the application displays using the hotkey it will now display where your mouse cursor is.
 - Added a confirmation popup for deleting snippets, this is to make way for the future 'snippet archive' button that will likely be next to the delete.
+- Archive implementation (incomplete!), you can right click on Snippet Types you want to archive; meaning you want to save them should you need them in the future but you don't need them always available.
 
 ## Bug Fixes
 - Application should always be in focus when the hotkey is used to bring it back up.
