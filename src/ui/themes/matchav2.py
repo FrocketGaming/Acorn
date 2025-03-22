@@ -259,6 +259,11 @@ qss = """
 		margin-right: 4px;
 		color: {text};
 	}}
+	#deleteConfirmationButton {{
+		margin-bottom: 4px;
+		margin-right: 4px;
+		color: {text};
+	}}
 		
 	/* ========== Snippet Popup CSS ========== */
 	#snippetTextArea {{

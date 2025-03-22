@@ -21,6 +21,7 @@ class ConfigurationManager:
             return None
 
         DatabaseManager.ensure_column_exists("snippets", "extension", "TEXT")
+        DatabaseManager.ensure_table_exists()
         return True
 
     def configure_database(self) -> None:
@@ -36,6 +37,11 @@ class ConfigurationManager:
             db.create_table("hotkeys", "id INTEGER PRIMARY KEY, hotkey TEXT NOT NULL")
             db.create_table(
                 "default_theme", "id INTEGER PRIMARY KEY, theme TEXT NOT NULL"
+            )
+            db.create_table("release", "release TEXT, lst_updt_ts DATE")
+            db.create_table(
+                "archive",
+                "id INTEGER PRIMARY KEY, name TEXT, type TEXT, description TEXT, content TEXT",
             )
 
             db.insert_data("default_theme", ["theme"], ("Matcha",))

@@ -10,6 +10,7 @@ from PyQt6.QtWidgets import (
     QLabel,
     QLineEdit,
     QComboBox,
+    QDialog,
 )
 from PyQt6.QtCore import Qt, QTimer
 from PyQt6.QtGui import QTextCursor, QIcon, QBrush, QFont, QTextCharFormat, QCursor
@@ -305,7 +306,22 @@ class ContentManager:
             self.parent.ui.content_layout.setAlignment(Qt.AlignmentFlag.AlignTop)
 
     def delete_snippet(self, snippet):
-        self.snippet_manager.delete_snippet(snippet["id"])
+        popup = PopupManager.create_generic_popup(
+            parent=self.parent,
+            title="Confirm Deletion",
+            window_size=(200, 100),
+            message="Delete Snippet?",
+            close_button_txt="No",
+            additional_button="Yes",
+            label_object_name="deleteConfirmationLabel",
+            btn_object_name="deleteConfirmationButton",
+            close_object_name="deleteConfirmationCloseButton",
+        )
+
+        popup.show()
+        result = popup.exec()
+        if result == QDialog.DialogCode.Accepted:
+            self.snippet_manager.delete_snippet(snippet["id"])
         self.parent.re_focus_selection()
 
 
@@ -504,6 +520,10 @@ class UIComponents:
         layout.addWidget(create_button)
         parent_layout.addLayout(layout)
 
+    def archive_snippet_type(self, snippet_type: str) -> None:
+        self.parent.snippet_manager.archive_snippet_type(snippet_type)
+        self.parent.re_focus_selection()
+
     def add_type_buttons(self, parent_layout):
         """Add buttons to filter snippets by snippet_type to the main layout. Remove them if no snippets are found."""
         self.active_buttons = {}
@@ -519,12 +539,27 @@ class UIComponents:
         button_layout = QHBoxLayout(button_widget)
 
         for snippet_type in self.parent.snippet_manager.get_snippet_types():
+            # Create a function that returns the lambda for the context menu
+            def make_archive_action(type_name):
+                return lambda: self.archive_snippet_type(type_name)
+
+            # Create a function that returns the lambda for the button click
+            def make_display_action(type_name):
+                return lambda: self.parent.content_manager.display_snippets(type_name)
+
+            # Create the button with the specific actions for this snippet_type
             button = UIFactory.create_QPushButton(
                 snippet_type,
-                lambda checked,
-                t=snippet_type: self.parent.content_manager.display_snippets(t),
+                make_display_action(
+                    snippet_type
+                ),  # Use the function to create the click callback
                 "typeButton",
                 shadow=True,
+                context_menu={
+                    "Archive": make_archive_action(
+                        snippet_type
+                    )  # Use the function to create the menu callback
+                },
             )
 
             self.active_buttons[snippet_type] = button

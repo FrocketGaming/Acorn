@@ -10,7 +10,9 @@
   - While holding CTRL you can move this window.
   - While holding SHIFT + CTRL and moving your mouse you can resize it! The smallest size is the old default size.
 - When the application displays using the hotkey it will now display where your mouse cursor is.
+- Added a confirmation popup for deleting snippets, this is to make way for the future 'snippet archive' button that will likely be next to the delete.
 
 ## Bug Fixes
 - Application should always be in focus when the hotkey is used to bring it back up.
 - "Copied!" pop up was fixed so it occurs at the location of the copy button for better visibility.
+- Added a 15 character limit to the Snippet Type, these are intended to be short category labels; not lengthy descriptions.

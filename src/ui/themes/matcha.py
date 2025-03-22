@@ -73,9 +73,6 @@ qss = """
 		padding: 5px;
 		min-width: 80px;
 	}}
-	QPushButton:hover {{
-		background-color: {red};
-	}}
 	QToolTip {{
 		background-color: {background};
 		color: {text};
@@ -144,8 +141,8 @@ qss = """
 		color: {text};
 		font: bold;
 		border: 1px solid {foreground};
-		padding: 2px;
-		min-width: 55px;
+		padding: 4px;
+		min-width: 80px;
 	}}
 	#typeButton:hover {{
 		font: bold;
@@ -157,8 +154,8 @@ qss = """
 		color: {background};
 		font: bold;
 		border: none;
-		padding: px;
-		min-width: 55px;
+		padding: 4px;
+		min-width: 80px;
 	}}
 
 	/* ========== Search Bar CSS ========== */
@@ -261,6 +258,36 @@ qss = """
 		margin-bottom: 4px;
 		margin-right: 4px;
 		color: {text};
+	}}
+
+	/* ========== Confirmation Popup CSS ========== */
+	#deleteConfirmationLabel {{
+		qproperty-alignment: AlignCenter;
+		margin-bottom: 4px;
+		margin-right: 4px;
+		margin-left: 4px;
+		color: {text};
+	}}
+	#deleteConfirmationButton {{
+		max-width: 50px;
+		margin-bottom: 4px;
+		margin-right: 4px;
+		margin-left: 4px;
+		color: {background};
+		background-color: {orange};
+	}}
+	#deleteConfirmationButton:hover {{
+		color: {text};
+		background-color: {red};
+	}}
+	#deleteConfirmationCloseButton {{
+		margin-bottom: 4px;
+		margin-right: 4px;
+		color: {text};
+	}}
+	#deleteConfirmationCloseButton:hover {{
+		color: {text};
+		background-color: {green};
 	}}
 		
 	/* ========== Snippet Popup CSS ========== */
@@ -379,6 +406,12 @@ qss = """
 		background-color: {background};
 				border: 1px solid {green};
 				color: {text}
+	}}
+ 	/* ========== File Extension CSS ========== */
+	#contextMenu {{
+		background-color: {background};
+		border: 1px solid {orange};
+		color: {text};
 	}}
 	"""
 qss = qss.replace("{icon}", check_icon)

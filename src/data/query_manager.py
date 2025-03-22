@@ -116,3 +116,19 @@ class QueryManager:
             hotkey TEXT NOT NULL
             """,
         )
+
+    @staticmethod
+    def archive_snippet_type(snippet_type: str) -> str:
+        """Query to archive snippets of a specific type"""
+        return f"""
+        INSERT INTO archive (id, name, type, description, content)
+        SELECT id, name, type, description, content
+        FROM snippets
+        WHERE type = '{snippet_type}'
+        """
+
+    @staticmethod
+    def delete_data(table_name, conditions) -> str:
+        """Query to delete data from the database"""
+
+        return f"DELETE FROM {table_name} WHERE {conditions}"

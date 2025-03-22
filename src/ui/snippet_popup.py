@@ -73,7 +73,7 @@ class SnippetPopupManager(QDialog):
 
         input_layout = QHBoxLayout()
         input_layout.setContentsMargins(0, 0, 4, 0)
-        self.type_input = QLineEdit()
+        self.type_input = QLineEdit(maxLength=15)
         self.type_input.setObjectName("TypeInputField")
         if self.parent.selected_snippet_type:
             self.type_input.setText(self.parent.selected_snippet_type)

@@ -2,16 +2,10 @@ from typing import List
 from .database_manager import DatabaseManager
 from pathlib import Path
 import polars as pl
-import tempfile
-import subprocess
 from PyQt6.QtCore import (
-    # QFileSystemWatcher,
     QObject,
     pyqtSignal,
 )
-import psutil
-import platform
-import os
 
 
 class SnippetManager(QObject):
@@ -47,6 +41,9 @@ class SnippetManager(QObject):
             "php": ".php",
             "ruby": ".rb",
         }
+
+    def archive_snippet_type(self, snippet_type: str) -> None:
+        DatabaseManager().archive_snippet_type(snippet_type)
 
     def perform_search(self, query: str) -> List:
         """

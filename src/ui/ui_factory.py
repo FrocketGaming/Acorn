@@ -4,14 +4,37 @@ from PyQt6.QtWidgets import (
     QWidget,
     QTextEdit,
     QGraphicsDropShadowEffect,
+    QMenu,
 )
-from PyQt6.QtGui import (
-    QTextCursor,
-    QColor,
-)
+from PyQt6.QtGui import QTextCursor, QColor, QAction
+from PyQt6.QtCore import Qt
 
 
 class UIFactory(QWidget):
+    def __init__(self):
+        super().__init__()
+
+    @staticmethod
+    def show_context_menu(button, position, context_menu):
+        """
+        Display a context menu at the given position.
+
+        Args:
+            button: The button that triggered the context menu
+            position: The position where to show the menu
+            context_menu: Dictionary with menu items as keys and callbacks as values
+        """
+        menu = QMenu(button)
+        menu.setObjectName("contextMenu")
+
+        # Add each action from the dictionary
+        for action_text, action_callback in context_menu.items():
+            action = QAction(action_text, button)
+            action.triggered.connect(action_callback)
+            menu.addAction(action)
+        # Show the menu
+        menu.exec(button.mapToGlobal(position))
+
     @staticmethod
     def create_QCheckBox(text, callback=None, checked=False, object_name=None):
         """Generic create checkbox factory method."""
@@ -26,7 +49,9 @@ class UIFactory(QWidget):
         return checkbox
 
     @staticmethod
-    def create_QPushButton(text, callback, object_name=None, width=None, shadow=False):
+    def create_QPushButton(
+        text, callback, object_name=None, width=None, shadow=False, context_menu=None
+    ):
         """Generic create button factory method."""
 
         button = QPushButton(text)
@@ -43,6 +68,13 @@ class UIFactory(QWidget):
             shadow.setYOffset(0.5)
             shadow.setColor(QColor(0, 0, 0, 200))
             button.setGraphicsEffect(shadow)
+        if context_menu:
+            button.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
+
+            # Connect the context menu signal to a lambda that calls show_context_menu
+            button.customContextMenuRequested.connect(
+                lambda pos: UIFactory.show_context_menu(button, pos, context_menu)
+            )
         return button
 
     @staticmethod

@@ -79,8 +79,16 @@ class DatabaseManager:
         """Delete data from the database"""
         with self.establish_connection() as conn:
             c = conn.cursor()
-            c.execute(f"DELETE FROM {table_name} WHERE {conditions}")
+            c.execute(QueryManager.delete_data(table_name, conditions))
             conn.commit()
+
+    def archive_snippet_type(self, snippet_type: str) -> None:
+        with self.establish_connection() as conn:
+            c = conn.cursor()
+            c.execute(QueryManager.archive_snippet_type(snippet_type))
+            conn.commit()
+
+        self.delete_data("snippets", f"type = '{snippet_type}'")
 
     @staticmethod
     def ensure_column_exists(
@@ -103,19 +111,37 @@ class DatabaseManager:
                 logging.info(f"Column '{column_name}' already exists in '{table_name}'")
 
     @staticmethod
-    def ensure_table_exists(table_name: str) -> None:
+    def ensure_table_exists() -> None:
         with DatabaseManager().establish_connection() as conn:
             c = conn.cursor()
 
             try:
-                c.execute(f"SELECT * FROM RELEASES LIMIT 1")
+                c.execute(f"SELECT * FROM release LIMIT 1")
             except Exception as e:
-                QueryManager.create_table(
-                    "RELEASES",
-                    """
-                    lst_updt_ts DATE,
-                    
+                c.execute(
+                    QueryManager.create_table(
+                        "release",
+                        """
+                release TEXT,
+                lst_updt_ts DATE
+                """,
+                    )
+                )
+
+            try:
+                c.execute(f"SELECT * FROM ARCHIVE LIMIT 1")
+            except Exception as e:
+                c.execute(
+                    QueryManager.create_table(
+                        "archive",
+                        """
+                    id INTEGER PRIMARY KEY,
+                    name TEXT,
+                    type TEXT,
+                    description TEXT,
+                    content TEXT
                     """,
+                    )
                 )
 
     @staticmethod
