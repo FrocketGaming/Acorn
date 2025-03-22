@@ -1,6 +1,6 @@
 from PyQt6.QtGui import QColor, QPalette
 from PyQt6.QtWidgets import QApplication
-from src.ui.themes import acorn, dracula, matcha
+from src.ui.themes import acorn, dracula, matcha, matchav2
 from src.data.database_manager import DatabaseManager
 from typing import Dict
 
@@ -97,4 +97,5 @@ all_themes = [
     # Theme("Acorn", acorn.colors, acorn.qss),
     # Theme("Dracula", dracula.colors, dracula.qss),
     Theme("Matcha", matcha.colors, matcha.qss),
+    # Theme("Matcha V2", matchav2.colors, matchav2.qss),
 ]

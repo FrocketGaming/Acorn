@@ -10,6 +10,7 @@ colors = {
     "text": "#ffffff",
     "alt_text": "#f1ebe1",
     "green": "#8BA888",
+    "dark_green": "#6d896a",
     "green_border": "#435740",
     "highlight": "#cddacc",
     "orange": "#ffb86f",
@@ -32,11 +33,11 @@ colors = {
 
 qss = """
 	QMainWindow, QWidget {{
-		background-color: {background};
+		background-color: {green};
 	}}
-	#Container {{
-		background: {background};
-		border: 1px solid {green};
+		#Container {{
+		background: {green};
+		border: 1px solid {background};
 		}}
 	QVBoxLayout {{
 		padding: 0px;
@@ -53,7 +54,7 @@ qss = """
 		max-width: 150px;
 	}}
 	QMenu::item:selected {{
-		background-color: {foreground};
+		background-color: {dark_green};
 		color: {text};
 	}}
 	QVBoxLayout {{
@@ -137,15 +138,13 @@ qss = """
 		padding: 0px;
 		margin: 0px;
 	}}
-
-	/* ========== Snippet Type Button CSS ========== */
 	#typeButton {{
 		background-color: {foreground};
 		color: {text};
 		font: bold;
 		border: 1px solid {foreground};
-		padding: 2px;
-		min-width: 55px;
+		padding: 5px;
+		min-width: 80px;
 	}}
 	#typeButton:hover {{
 		font: bold;
@@ -157,11 +156,9 @@ qss = """
 		color: {background};
 		font: bold;
 		border: none;
-		padding: px;
-		min-width: 55px;
+		padding: 5px;
+		min-width: 80px;
 	}}
-
-	/* ========== Search Bar CSS ========== */
 	#searchBar {{
 		border: 1px solid {highlight};
 		color: {text};
