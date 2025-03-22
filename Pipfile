@@ -1,0 +1,19 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+pyqt6 = "*"
+pynput = "*"
+polars = "*"
+pyinstaller = "*"
+requests = "*"
+arrow = "*"
+psutil = "*"
+pytest = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.12"
