@@ -24,7 +24,7 @@ def app():
     """
     app = QApplication(sys.argv)
     update_handler = UpdateManager()
-    ConfigurationManager(update_handler)
+    ConfigurationManager()
     kb_handler = KeyboardManager()
 
     qt_handler = QtManager(kb_handler, update_handler)

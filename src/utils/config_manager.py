@@ -7,10 +7,9 @@ class ConfigurationManager:
     This includes ensuring the database is created and populated with default values.
     """
 
-    def __init__(self, updateManager: UpdateManager) -> None:
+    def __init__(self) -> None:
+        self.current_version = UpdateManager().get_current_version()
         self.check_configuration()
-        self.updater = updateManager
-        # print(self.updater.CURRENT_VERSION)
 
     def check_configuration(self) -> None:
         """
@@ -18,14 +17,13 @@ class ConfigurationManager:
         """
 
         db_path: str = DatabaseManager.get_db_path()
-        print(db_path)
         if not db_path.exists():
             self.configure_database()
             return None
 
-        # if self.updater.CURRENT_VERISON < '0.2':
-        DatabaseManager.ensure_column_exists("snippets", "extension", "TEXT")
-        DatabaseManager.ensure_column_exists("snippets", "archived", "TEXT")
+        if self.current_version <= '0.3':
+            DatabaseManager.ensure_column_exists("snippets", "extension", "TEXT")
+            DatabaseManager.ensure_column_exists("snippets", "archived", "TEXT")
         return True
 
     def configure_database(self) -> None:

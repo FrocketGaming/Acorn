@@ -23,6 +23,10 @@ class UpdateManager:
         self.latest_version = self.get_latest_version()
         self.version_check()
 
+    @staticmethod
+    def get_current_version():
+        return UpdateManager.CURRENT_VERISON
+
     def version_check(self):
         if (
             self.CURRENT_VERISON < self.latest_version
