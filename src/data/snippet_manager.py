@@ -85,6 +85,7 @@ class SnippetManager(QObject):
             table_name="snippets",
             columns="type",
             group="type",
+            conditions="archived = 'N' OR archived IS NULL",
         )
         return sorted(snippet_types["type"], key=str.casefold)
 
@@ -107,7 +108,7 @@ class SnippetManager(QObject):
             return (
                 DatabaseManager()
                 .read_database(
-                    "snippets", f"{columns}", "type = ?", params=(snippet_type,)
+                    "snippets", f"{columns}", conditions="type = ? AND archived = 'N' OR archived IS NULL", params=(snippet_type,)
                 )
                 .to_dicts()
             )

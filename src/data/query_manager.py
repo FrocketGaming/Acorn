@@ -121,10 +121,11 @@ class QueryManager:
     def archive_snippet_type(snippet_type: str) -> str:
         """Query to archive snippets of a specific type"""
         return f"""
-        INSERT INTO archive (id, name, type, description, content)
-        SELECT id, name, type, description, content
-        FROM snippets
+        UPDATE snippets
+        SET archived = 'Y'
         WHERE type = '{snippet_type}'
+        AND archived IS NULL
+        OR archived = 'N'
         """
 
     @staticmethod

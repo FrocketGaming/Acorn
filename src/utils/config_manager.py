@@ -1,5 +1,5 @@
 from src.data.database_manager import DatabaseManager
-
+from src.utils.update_helper import UpdateManager
 
 class ConfigurationManager:
     """
@@ -7,8 +7,10 @@ class ConfigurationManager:
     This includes ensuring the database is created and populated with default values.
     """
 
-    def __init__(self):
+    def __init__(self, updateManager: UpdateManager) -> None:
         self.check_configuration()
+        self.updater = updateManager
+        # print(self.updater.CURRENT_VERSION)
 
     def check_configuration(self) -> None:
         """
@@ -16,12 +18,14 @@ class ConfigurationManager:
         """
 
         db_path: str = DatabaseManager.get_db_path()
+        print(db_path)
         if not db_path.exists():
             self.configure_database()
             return None
 
+        # if self.updater.CURRENT_VERISON < '0.2':
         DatabaseManager.ensure_column_exists("snippets", "extension", "TEXT")
-        DatabaseManager.ensure_table_exists()
+        DatabaseManager.ensure_column_exists("snippets", "archived", "TEXT")
         return True
 
     def configure_database(self) -> None:

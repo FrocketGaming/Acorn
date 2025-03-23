@@ -86,9 +86,7 @@ class DatabaseManager:
         with self.establish_connection() as conn:
             c = conn.cursor()
             c.execute(QueryManager.archive_snippet_type(snippet_type))
-            conn.commit()
 
-        self.delete_data("snippets", f"type = '{snippet_type}'")
 
     @staticmethod
     def ensure_column_exists(
