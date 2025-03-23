@@ -29,7 +29,7 @@ class UpdateManager:
 
     def version_check(self):
         if (
-            self.CURRENT_VERISON < self.latest_version
+            self.CURRENT_VERISON > self.latest_version
             and self.latest_version is not None
         ):
             self.update_required = True
