@@ -4,18 +4,18 @@ check_icon = UtilityManager.get_resource_path("imgs/check.png")
 check_icon = str(check_icon).replace("\\", "/")
 
 colors = {
-    "background": "#3e2c22", # Brown
+    "background": "#3e2c22",  # Brown
     "alt_background": "#262626",
     "light_gray": "#717171",
-    "foreground": "#584339", # Light Brown
+    "foreground": "#584339",  # Light Brown
     "text": "#ffffff",
     "alt_text": "#f1ebe1",
     "main": "#584339",
     "dark_main": "#9c5c2a",
-	"light_main": "#e5c8a5",
-    "highlight": "#8C4A4F", # Light Red
-    "highlight_2": "#D4AF37", # Burnt Orange
-    "highlight_3": "#D4AF37", # Gold
+    "light_main": "#e5c8a5",
+    "highlight": "#8C4A4F",  # Light Red
+    "highlight_2": "#D4AF37",  # Burnt Orange
+    "highlight_3": "#D4AF37",  # Gold
     "label": "#8BA888",
     "palette": {
         "Window": "light_main",
@@ -128,7 +128,7 @@ qss = """
 	/* ========== Snippet Display Area CSS ========== */
 	#SnippetTextArea {{
 		border: 1px solid {light_gray};
-		max-height: 24px;
+		max-height: 32px;
         padding: 0px;
         margin: 0px;
 	}}

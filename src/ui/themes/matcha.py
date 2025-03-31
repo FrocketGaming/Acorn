@@ -12,10 +12,10 @@ colors = {
     "alt_text": "#f1ebe1",
     "main": "#A8D08D",
     "dark_main": "#5F7D4E",
-	"light_main": "#B7E5B4",
-    "highlight": "#f9b1a4", # Light Red
-    "highlight_2": "#d26b5b", # Red
-    "highlight_3": "#F5E2A1", # Orange
+    "light_main": "#B7E5B4",
+    "highlight": "#f9b1a4",  # Light Red
+    "highlight_2": "#d26b5b",  # Red
+    "highlight_3": "#F5E2A1",  # Orange
     "label": "#8BA888",
     "palette": {
         "Window": "background",
@@ -126,7 +126,7 @@ qss = """
 	/* ========== Snippet Display Area CSS ========== */
 	#SnippetTextArea {{
 		border: 1px solid {light_gray};
-		max-height: 24px;
+		max-height: 32px;
         padding: 0px;
         margin: 0px;
 	}}
