@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Acorn
 ![Image](https://github.com/user-attachments/assets/57130880-9e88-4a95-8bcb-581a3f1f108c)
 
@@ -20,3 +21,7 @@ Acorn was created as a lightweight snippet management tool for saving, editing, 
 
 ### Creating a Snippet!
 ![Image](https://github.com/user-attachments/assets/26222374-9daa-4608-82c8-ef002e1474df)
+=======
+# Acorn
+Snippet Management application
+>>>>>>> dev

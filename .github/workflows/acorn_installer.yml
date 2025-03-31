@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 name: Acorn Windows Installer
 on:
   workflow_dispatch:
@@ -78,3 +79,85 @@ jobs:
       with:
         name: acorn-installer
         path: Output/acorn-installer.exe
+=======
+name: Acorn Windows Installer
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pipenv
+        pipenv install --deploy --dev
+        pipenv run pip install pyinstaller
+        
+    - name: Build executable with PyInstaller
+      run: |
+        pipenv run pyinstaller --windowed --add-data "src/imgs/*;imgs" --icon "src/imgs/acorn.ico" --name acorn main.py
+        
+    - name: Install Inno Setup
+      run: |
+        choco install innosetup
+        
+    - name: Create Inno Setup script
+      run: |
+        @"
+        [Setup]
+        AppName=Acorn
+        AppVersion=0.1.0
+        AppVerName=Acorn
+        AppPublisher=Acorn
+        AppId={{ACORN-UNIQUE-ID}}
+        DefaultDirName={pf32}\Acorn
+        DefaultGroupName=Acorn
+        OutputBaseFilename=acorn-installer
+        OutputDir=Output
+        Compression=lzma
+        SolidCompression=yes
+        PrivilegesRequired=admin
+        ArchitecturesInstallIn64BitMode=x64
+        ArchitecturesAllowed=x86 x64
+        UninstallDisplayIcon={app}\acorn.exe
+        DisableProgramGroupPage=yes
+        WizardStyle=modern
+
+        [Files]
+        Source: "dist\acorn\*"; DestDir: "{app}"; Flags: recursesubdirs createallsubdirs
+
+        [Icons]
+        Name: "{group}\Acorn"; Filename: "{app}\acorn.exe"
+        Name: "{commondesktop}\Acorn"; Filename: "{app}\acorn.exe"; Tasks: desktopicon
+        Name: "{group}\Uninstall Acorn"; Filename: "{uninstallexe}"
+
+        [Tasks]
+        Name: "desktopicon"; Description: "Create a &desktop shortcut"; GroupDescription: "Additional icons:"; Flags: unchecked
+
+        [Registry]
+        Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Run"; ValueType: string; ValueName: "Acorn"; ValueData: """{app}\acorn.exe"""; Flags: uninsdeletevalue
+
+        [UninstallDelete]
+        Type: filesandordirs; Name: "{app}"
+        "@ | Out-File -FilePath "installer.iss" -Encoding utf8
+        
+    - name: Build installer
+      run: |
+        & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" /Q installer.iss
+        
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: acorn-installer
+        path: Output/acorn-installer.exe
+>>>>>>> dev
