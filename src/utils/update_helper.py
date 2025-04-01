@@ -7,7 +7,7 @@ import sys
 
 
 class UpdateManager:
-    CURRENT_VERISON = "0.2.0"
+    CURRENT_VERISON = "0.3.0"
     REPO = "FrocketGaming/Acorn"
     URL = f"https://api.github.com/repos/{REPO}/releases"
     DOWNLOAD_DIR = Path.home() / "Downloads"
@@ -34,7 +34,7 @@ class UpdateManager:
     def version_check(self):
         try:
             if (
-                self.CURRENT_VERISON > self.latest_version
+                self.CURRENT_VERISON < self.latest_version
                 and self.latest_version is not None
             ):
                 self.update_required = True
