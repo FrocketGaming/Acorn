@@ -5,6 +5,7 @@ from PyQt6.QtWidgets import (
     QTextEdit,
     QGraphicsDropShadowEffect,
     QMenu,
+    QLabel,
 )
 from PyQt6.QtGui import QTextCursor, QColor, QAction
 from PyQt6.QtCore import Qt
@@ -100,3 +101,23 @@ class UIFactory(QWidget):
         text_area.setTextCursor(cursor)
         text_area.ensureCursorVisible()
         return text_area
+
+    @staticmethod
+    def create_QLabel(
+        text, tooltip=None, object_name=None, read_only=False, fixed_height=None
+    ):
+        label = QLabel(text)
+        label.setTextInteractionFlags(
+            Qt.TextInteractionFlag.TextSelectableByMouse
+        )  # Allow text selection
+
+        if tooltip:
+            label.setToolTip(tooltip[:400] + "\n..." if len(tooltip) > 400 else tooltip)
+
+        if object_name:
+            label.setObjectName(object_name)
+
+        if fixed_height:
+            label.setFixedHeight(fixed_height)
+
+        return label

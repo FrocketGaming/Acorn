@@ -254,31 +254,17 @@ class ContentManager:
         for item in sorted_content:
             row_layout = QHBoxLayout()
 
-            text_area = UIFactory.create_QTextarea(
-                text="",
+            highlight_color = self.parent.theme_manager.get_theme_color(
+                "Highlight"
+            ).name()  # Get color as hex
+            formatted_text = f'<span style="color:{highlight_color}; font-weight:bold; font-size:18px;">{item["name"]}:</span> {item["description"]}'
+
+            text_area = UIFactory.create_QLabel(
+                text=formatted_text,
                 tooltip=item["content"],
                 object_name="SnippetTextArea",
                 read_only=True,
             )
-            text_area.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
-            cursor = text_area.textCursor()
-
-            # Set name to bold and larger font
-            name_format = QTextCharFormat()
-            name_format.setForeground(
-                QBrush(self.parent.theme_manager.get_theme_color("Highlight"))
-            )
-            name_format.setFontWeight(QFont.Weight.Bold)
-            name_format.setFontPointSize(14)
-            cursor.insertText(item["name"], name_format)
-
-            # Insert separator and description in a smaller font
-            desc_format = QTextCharFormat()
-            desc_format.setFontPointSize(12)
-
-            cursor.insertText(": " + item["description"], desc_format)
-
-            text_area.setTextCursor(cursor)  # Apply the styled text
 
             copy_button = UIFactory.create_QPushButton(
                 "",
