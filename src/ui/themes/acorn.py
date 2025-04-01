@@ -128,9 +128,14 @@ qss = """
 	/* ========== Snippet Display Area CSS ========== */
 	#SnippetTextArea {{
 		border: 1px solid {light_gray};
-		max-height: 32px;
-        padding: 0px;
-        margin: 0px;
+		font-size: 14px;
+		font-weight: normal;
+		min-height: 28px;
+		max-height: 28px;
+		min-width: 670px;
+		max-width: 695px;
+    padding: 0px;
+    margin: 0px;
 	}}
 	#SnippetTextArea QTextarea {{
 		padding: 0px;
@@ -255,7 +260,8 @@ qss = """
 	#copyButton {{
 		background-color: {light_main};
 		border: 1px solid {foreground};
-		min-width: 8px;
+		min-width: 15px;
+		max-width: 15px;
 		min-height: 10px;
 		border-radius: 10px;
 	}}
@@ -273,6 +279,7 @@ qss = """
 		background-color: {light_main};
 		border: 1px solid {foreground};
 		min-width: 15px;
+		max-width: 15px;
 		min-height: 10px;
 		border-radius: 8px;
 	}}
@@ -290,7 +297,8 @@ qss = """
 		background-color: {highlight};
         border: none;
 		color: {text};
-		min-width: 5px;
+		min-width: 10px;
+		max-width: 10px;
 		max-height: 10px;
 		border-radius: 5px;
 	}}
