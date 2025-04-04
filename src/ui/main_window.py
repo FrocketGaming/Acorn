@@ -123,14 +123,12 @@ class QtManager(BaseWindow):
     def show_hide_window(self):
         """Show or hide the main application window based on its current state."""
         if self.isVisible():
-            self.ui.search_bar.clearFocus()
+            if self.default_view is True:
+                self.ui.search_bar.clearFocus()
             self.hide()
         else:
             # Get the current cursor position
             cursor_pos = QCursor.pos()
-
-            # Show the window first
-            self.show()
 
             # Center the window on the cursor position
             window_width = self.width()
@@ -144,6 +142,7 @@ class QtManager(BaseWindow):
             self.move(x_pos, y_pos)
 
             # Bring window to front and focus it
+            self.show()
             self.raise_()
             self.activateWindow()
 
@@ -327,7 +326,7 @@ class ContentManager:
 
     def check_current_release(self):
         db_version = self.snippet_manager.db_release.item()
-        if db_version != self.parent.update_manager.latest_version:
+        if db_version != self.parent.update_manager.get_current_version():
             self.display_release_notes(db_version)
 
     def display_release_notes(self, db_version: str = None):
