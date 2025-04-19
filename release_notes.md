@@ -16,10 +16,12 @@
 - Archive implementation, this is for snippets you want to keep saved but don't need visible all the time.
     - Right click on Snippet Types and select 'Archive' to archive it.
     - Check the 'View Archived Snippets' checkbox to view all the snippets you've archived!
-- Added syntax highlighting for .py and .sql files, it matches the theme chosen (which is still only Matcha at this time...)
+- Added syntax highlighting for .py and .sql files, it matches the theme chosen
+- Acorn theme was finally added but some components may not 100% be done with the styling.
+- Matcha theme overall was re-styled.
 
 ## Bug Fixes
 - Application should always be in focus when the hotkey is used to bring it back up.
 - "Copied!" pop up was fixed so it occurs at the location of the copy button for better visibility.
-- Added a 15 character limit to the Snippet Type, these are intended to be short category labels; not lengthy descriptions.
-- Fixed some backend redundancy interactions with the database to improve performance.
+- Added a 25 character limit to the Snippet Type, these are intended to be short category labels; not lengthy descriptions.
+- Fixed some back-end redundancy interactions with the database to improve performance.
