@@ -44,11 +44,7 @@ class BaseWindow(QMainWindow):
     def _setup_base_window(self):
         """Setup basic window properties common to all windows"""
         self.setWindowTitle("Acorn")
-        self.setWindowFlags(
-            self.windowFlags()
-            | Qt.WindowType.FramelessWindowHint
-            | Qt.WindowType.WindowStaysOnTopHint
-        )
+        self.setWindowFlags(self.windowFlags() | Qt.WindowType.FramelessWindowHint)
         self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
         self.setWindowIcon(QIcon(str(self.window_icon)))
 
@@ -98,6 +94,8 @@ class QtManager(BaseWindow):
     def __init__(self, kb_handler, updater):
         super().__init__()
         self.selected_snippet_type = None
+        self.default_view = False
+        self.snippets_refreshed = False
         self._initalize_managers(kb_handler, updater)
         self.ui = UIComponents(self, updater)
         self.ui._setup_main_ui()
@@ -105,8 +103,6 @@ class QtManager(BaseWindow):
         self.keyboard_manager.enter_key_pressed.connect(
             self.search_manager.perform_search
         )
-        self.default_view = False
-        self.snippets_refreshed = False
 
     def _initalize_managers(self, kb_handler, updater):
         self.keyboard_manager = kb_handler
@@ -122,9 +118,17 @@ class QtManager(BaseWindow):
 
     def show_hide_window(self):
         """Show or hide the main application window based on its current state."""
-        if self.isVisible():
-            if self.default_view is True:
-                self.ui.search_bar.clearFocus()
+        if self.isVisible() and not self.isActiveWindow():
+            """ If the window is already visible, but not active, bring it to the front and focus it. """
+            self.setWindowFlag(Qt.WindowType.WindowStaysOnTopHint, True)
+            self.show()  # Needed to apply new flags
+            self.raise_()
+            self.activateWindow()
+            self.setWindowFlag(Qt.WindowType.WindowStaysOnTopHint, False)
+            self.show()
+        elif self.isVisible():
+            if self.default_view is False:
+                self.ui.search_bar.clearFocus()  # Cannot clear on True as it does not exist
             self.hide()
         else:
             # Get the current cursor position

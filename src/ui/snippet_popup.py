@@ -112,7 +112,7 @@ class SnippetPopupManager(QDialog):
         input_layout.setContentsMargins(0, 0, 4, 0)  # Preserve original margins
 
         # Type input field
-        self.type_input = QLineEdit(maxLength=15)
+        self.type_input = QLineEdit(maxLength=25)
         self.type_input.setObjectName("TypeInputField")
 
         # Set initial value
