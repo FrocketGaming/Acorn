@@ -334,7 +334,14 @@ class ContentManager:
             self.display_release_notes(db_version)
 
     def display_release_notes(self, db_version: str = None):
-        popup = PopupManager.create_generic_popup(
+        # Check if popup already exists and is still visible
+        if hasattr(self, 'release_notes_popup') and self.release_notes_popup.isVisible():
+            self.release_notes_popup.raise_()
+            self.release_notes_popup.activateWindow()
+            return
+
+        # Create and store the popup
+        self.release_notes_popup = PopupManager.create_generic_popup(
             parent=self.parent,
             title="Release Notes",
             window_size=(700, 400),
@@ -342,12 +349,13 @@ class ContentManager:
             auto_size=True,
             is_markdown=True,
         )
-        popup.show()
+        self.release_notes_popup.show()
 
         if db_version:
             if db_version != self.parent.update_manager.get_current_version():
                 print("Updating release in database")
                 self.update_release_in_db()
+
 
     def update_release_in_db(self):
         self.snippet_manager.db.update_database(
