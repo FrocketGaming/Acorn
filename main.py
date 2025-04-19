@@ -33,7 +33,6 @@ def app():
     qt_handler.show_window()
 
     # Start the event loop and prevent the application from closing when the main window is closed
-    # TODO: Reactivate this and update the CURRENT_VERISON to 0.3.0
     app.setQuitOnLastWindowClosed(False)
     app.exec()
 
