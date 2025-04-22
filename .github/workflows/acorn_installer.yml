@@ -82,4 +82,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: acorn.exe
-        path: Output/acorn.exe
+        path: Output/acorn-installer.exe
