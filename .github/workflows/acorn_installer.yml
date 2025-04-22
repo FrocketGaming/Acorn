@@ -33,14 +33,14 @@ jobs:
       run: |
         @"
         [Setup]
-        AppName=Acorn
+        AppName=acorn
         AppVersion=0.3.0
         AppVerName=Acorn
         AppPublisher=Acorn
         AppId={{ACORN-UNIQUE-ID}}
         DefaultDirName={pf}\Acorn
         DefaultGroupName=Acorn
-        OutputBaseFilename=acorn-installer
+        OutputBaseFilename=acorn-windows-installer
         OutputDir=Output
         Compression=lzma
         SolidCompression=yes
