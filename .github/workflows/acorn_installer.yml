@@ -34,11 +34,11 @@ jobs:
         @"
         [Setup]
         AppName=Acorn
-        AppVersion=0.1.0
+        AppVersion=0.3.0
         AppVerName=Acorn
         AppPublisher=Acorn
         AppId={{ACORN-UNIQUE-ID}}
-        DefaultDirName={pf32}\Acorn
+        DefaultDirName={pf}\Acorn
         DefaultGroupName=Acorn
         OutputBaseFilename=acorn-installer
         OutputDir=Output
