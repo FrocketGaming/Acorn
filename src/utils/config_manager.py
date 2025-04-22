@@ -24,7 +24,6 @@ class ConfigurationManager:
             return None
 
         if self.current_version <= "0.3.0":
-            print("True")
             with DatabaseManager() as db:
                 db.ensure_column_exists("snippets", "extension", "TEXT")
                 db.ensure_column_exists("snippets", "archived", "TEXT")

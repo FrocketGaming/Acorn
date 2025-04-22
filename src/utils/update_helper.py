@@ -95,7 +95,7 @@ class UpdateManager:
             @echo off
             timeout /t 2 /nobreak >nul
             start /wait "" "{str(self.DOWNLOAD_DIR / self.FILE_NAME)}"
-            start "" "{str(self.application_path / "acorn.exe")}"
+            start "" "{str(self.application_path / "acorn-installer.exe")}"
             del "%~f0"
             exit
             """)
