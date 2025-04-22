@@ -31,9 +31,6 @@ jobs:
           throw "acorn.exe not found"
         }
 
-    - name: Install Inno Setup
-      run: choco install innosetup --no-progress
-
     - name: Create Inno Setup script
       shell: cmd
       run: |
@@ -75,9 +72,12 @@ jobs:
           echo Type: filesandordirs; Name: "{app}"
         )
 
+    - name: Set up Inno Setup
+      uses: Minionguyjpro/setup-inno@v2
+
     - name: Build installer
-      run: |
-        & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" installer.iss
+      run: iscc installer.iss
+
 
     - name: Upload artifact
       uses: actions/upload-artifact@v4
