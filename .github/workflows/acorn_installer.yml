@@ -32,54 +32,53 @@ jobs:
         }
 
     - name: Create Inno Setup script
-      shell: cmd
       run: |
-        > installer.iss (
-          echo [Setup]
-          echo AppName=Acorn
-          echo AppVersion=0.3.0
-          echo AppVerName=Acorn
-          echo AppPublisher=Acorn
-          echo AppId={{ACORN-UNIQUE-ID}}
-          echo DefaultDirName={pf}\Acorn
-          echo DefaultGroupName=Acorn
-          echo OutputBaseFilename=acorn-installer
-          echo OutputDir=Output
-          echo Compression=lzma
-          echo SolidCompression=yes
-          echo PrivilegesRequired=admin
-          echo ArchitecturesInstallIn64BitMode=x64
-          echo ArchitecturesAllowed=x86 x64
-          echo UninstallDisplayIcon={app}\acorn.exe
-          echo DisableProgramGroupPage=yes
-          echo WizardStyle=modern
+        $script = @'
+        [Setup]
+        AppName=Acorn
+        AppVersion=0.3.0
+        AppVerName=Acorn
+        AppPublisher=Acorn
+        AppId={{ACORN-UNIQUE-ID}}
+        DefaultDirName={pf}\Acorn
+        DefaultGroupName=Acorn
+        OutputBaseFilename=acorn-installer
+        OutputDir=Output
+        Compression=lzma
+        SolidCompression=yes
+        PrivilegesRequired=admin
+        ArchitecturesInstallIn64BitMode=x64
+        ArchitecturesAllowed=x86 x64
+        UninstallDisplayIcon={app}\acorn.exe
+        DisableProgramGroupPage=yes
+        WizardStyle=modern
 
-          echo [Files]
-          echo Source: "dist\acorn\*"; DestDir: "{app}"; Flags: recursesubdirs createallsubdirs
+        [Files]
+        Source: "dist\acorn\*"; DestDir: "{app}"; Flags: recursesubdirs createallsubdirs
 
-          echo [Icons]
-          echo Name: "{group}\Acorn"; Filename: "{app}\acorn.exe"
-          echo Name: "{commondesktop}\Acorn"; Filename: "{app}\acorn.exe"; Tasks: desktopicon
-          echo Name: "{group}\Uninstall Acorn"; Filename: "{uninstallexe}"
+        [Icons]
+        Name: "{group}\Acorn"; Filename: "{app}\acorn.exe"
+        Name: "{commondesktop}\Acorn"; Filename: "{app}\acorn.exe"; Tasks: desktopicon
+        Name: "{group}\Uninstall Acorn"; Filename: "{uninstallexe}"
 
-          echo [Tasks]
-          echo Name: "desktopicon"; Description: "Create a ^&desktop shortcut"; GroupDescription: "Additional icons:"; Flags: unchecked
+        [Tasks]
+        Name: "desktopicon"; Description: "Create a &desktop shortcut"; GroupDescription: "Additional icons:"; Flags: unchecked
 
-          echo [Registry]
-          echo Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Run"; ValueType: string; ValueName: "Acorn"; ValueData: """{app}\acorn.exe"""; Flags: uninsdeletevalue
+        [Registry]
+        Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Run"; ValueType: string; ValueName: "Acorn"; ValueData: """{app}\acorn.exe"""; Flags: uninsdeletevalue
 
-          echo [UninstallDelete]
-          echo Type: filesandordirs; Name: "{app}"
-        )
+        [UninstallDelete]
+        Type: filesandordirs; Name: "{app}"
+        '@
+        Set-Content -Path installer.iss -Value $script -Encoding Ascii
 
-    - name: Set up Inno Setup
-      uses: Minionguyjpro/setup-inno@v2
+    - name: Compile Installer
+      uses: Minionguyjpro/Inno-Setup-Action@v1.2.5
+      with:
+        path: installer.iss
+        options: /O+
 
-    - name: Build installer
-      run: iscc installer.iss
-
-
-    - name: Upload artifact
+    - name: Upload installer artifact
       uses: actions/upload-artifact@v4
       with:
         name: acorn-installer
