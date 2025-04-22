@@ -40,7 +40,7 @@ jobs:
         AppId={{ACORN-UNIQUE-ID}}
         DefaultDirName={pf}\Acorn
         DefaultGroupName=Acorn
-        OutputBaseFilename=acorn-windows-installer
+        OutputBaseFilename=acorn-installer
         OutputDir=Output
         Compression=lzma
         SolidCompression=yes
