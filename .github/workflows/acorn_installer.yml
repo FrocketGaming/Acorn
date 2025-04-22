@@ -67,7 +67,7 @@ jobs:
 
         [UninstallDelete]
         Type: filesandordirs; Name: "{app}"
-        "@ | Out-File -FilePath "installer.iss" -Encoding utf8
+        "@ | Out-File -FilePath "installer.iss" -Encoding ascii
         
     - name: Build installer
       run: |
