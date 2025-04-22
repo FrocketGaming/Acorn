@@ -81,5 +81,5 @@ jobs:
     - name: Upload installer artifact
       uses: actions/upload-artifact@v4
       with:
-        name: acorn.exe
+        name: acorn
         path: Output/acorn-installer.exe
