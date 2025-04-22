@@ -21,14 +21,12 @@ class ConfigurationManager:
         db_path: str = DatabaseManager.get_db_path()
         if not db_path.exists():
             self.configure_database()
-            return None
+            return
 
-        if self.current_version <= "0.3.0":
-            with DatabaseManager() as db:
-                db.ensure_column_exists("snippets", "extension", "TEXT")
-                db.ensure_column_exists("snippets", "archived", "TEXT")
-                db.ensure_release_table("release", current_version=self.current_version)
-        return True
+        with DatabaseManager() as db:
+            db.ensure_column_exists("snippets", "extension", "TEXT")
+            db.ensure_column_exists("snippets", "archived", "TEXT")
+            db.ensure_release_table("release", current_version=self.current_version)
 
     def configure_database(self) -> None:
         """
